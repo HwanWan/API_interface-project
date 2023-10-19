@@ -1,0 +1,40 @@
+server:
+  port: 8091
+
+dubbo:
+  application:
+    name: dubbo-springboot-demo-provider
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    id: nacos-registry
+    address: nacos://localhost:8848
+
+
+
+spring:
+  application:
+    name: dubbo-springboot-demo-consumer
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/api_database?serverTimezone=UTC&rewriteBatchedStatements=true&useSSL=false
+    username: root
+    password: hwj20020917
+# 网关转发请求：
+  cloud:
+    gateway:
+      routes:
+        - id: API_gateway
+          # 将所有/api/.. 的请求转为 http://localhost:8080/api/...
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/**
+# 开启网关日志
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway: trace
+

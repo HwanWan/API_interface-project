@@ -1,0 +1,6 @@
+api:
+  client:
+    accessKey: "yupiapi"
+    secretKey: "abcdefg"
+
+
